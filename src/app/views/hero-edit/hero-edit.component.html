@@ -1,23 +1,24 @@
 <div class="container">
     <div class="page-title">Hero Edit Page</div>
+    <form [formGroup]="heroForm" class="hero-form">
+        <mat-form-field class="example-form-field">
+            <mat-label>Hero name</mat-label>
+            <input matInput [formControl]="name" required>
+            <mat-error *ngIf="name.invalid">You must enter a value</mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="example-form-field">
-        <mat-label>Hero name</mat-label>
-        <input matInput type="text" [(ngModel)]="heroName">
-    </mat-form-field>
-    
-    <mat-form-field class="example-form-field">
-        <mat-label>Description</mat-label>
-        <input matInput type="text" [(ngModel)]="description">
-    </mat-form-field>
-    
-    <mat-form-field class="example-form-field">
-        <mat-label>Alter Ego</mat-label>
-        <input matInput type="text" [(ngModel)]="alterEgo">
-    </mat-form-field>
-    
-    
-    
-    <button mat-raised-button color="primary" (click)="createHero()">Confirm</button>
+        <mat-form-field class="example-form-field">
+            <mat-label>Description</mat-label>
+            <input matInput [formControl]="description">
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field">
+            <mat-label>Alter Ego</mat-label>
+            <input matInput [formControl]="alterEgo" required>
+            <mat-error *ngIf="alterEgo.invalid">You must enter a value</mat-error>
+        </mat-form-field>
+    </form>
+
+    <button mat-raised-button color="primary" (click)="createHero()" [disabled]="!heroForm.valid">Confirm</button>
 
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Hero } from 'src/app/models/hero.model';
 import { HeroService } from 'src/app/services/hero.service';
@@ -11,9 +12,12 @@ import { HeroService } from 'src/app/services/hero.service';
 export class HeroEditComponent implements OnInit {
 
   private heroId: string | null = "";
-  public heroName: string = "";
-  public description: string | undefined = "";
-  public alterEgo: string = "";
+
+  public name: FormControl = new FormControl('', [Validators.required]);
+  public description: FormControl = new FormControl();
+  public alterEgo: FormControl = new FormControl('', [Validators.required]);
+
+  public heroForm!: FormGroup;
 
 
   constructor(
@@ -23,30 +27,36 @@ export class HeroEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.heroForm = new FormGroup({
+      name: this.name,
+      description: this.description,
+      alterEgo: this.alterEgo
+    });
     this.heroId = this.activatedroute.snapshot.paramMap.get("id");
     if (this.heroId) {
       this.heroSrv.getHeroById(this.heroId).subscribe(hero => {
         if (hero) {
-          this.heroName = hero.name;
-          this.description = hero.description;
-          this.alterEgo = hero.alterEgo;
+          this.name.setValue(hero.name);
+          this.description.setValue(hero.description);
+          this.alterEgo.setValue(hero.alterEgo);
         }
       });
     }
   }
 
   createHero(): void {
+    const id = this.heroId ? this.heroId : `${this.name.value}-${Math.floor(Math.random() * 100)}`;
     const newHero: Hero = {
-      id: this.heroId ? this.heroId : `${this.heroName}-${Math.floor(Math.random() * 100)}`,
-      name: this.heroName,
-      description: this.description,
-      alterEgo: this.alterEgo
+      id: id,
+      name: this.name.value,
+      description: this.description.value,
+      alterEgo: this.alterEgo.value
     }
     this.heroSrv.setHero(newHero).subscribe(() => {
       this.router.navigateByUrl("/hero-list")
     });
   }
 
-  
+
 
 }
