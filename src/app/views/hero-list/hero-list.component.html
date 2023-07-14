@@ -1,0 +1,29 @@
+<div class="page-title">Hero List Page</div>
+
+<div class="search">
+    <mat-form-field class="example-form-field">
+        <mat-label>Hero name</mat-label>
+        <input matInput type="text" [(ngModel)]="heroName" (ngModelChange)="filterList()">
+        <button *ngIf="heroName" matSuffix mat-icon-button aria-label="Clear" (click)="filterList(true)">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+</div>
+
+<div class="hero-list-container">
+    <app-hero *ngFor="let hero of heroesToShow" 
+        [hero]="hero" 
+        (editClicked)="editHero($event)"
+        (deleteClicked)="deleteHero($event)"
+        class="hero-component">
+    </app-hero>
+</div>
+
+<div class="button-container">
+    <button mat-raised-button color="primary" [routerLink]="'/hero-edit'">Add</button>
+
+</div>
+
+<mat-paginator [length]="heroesFiltered.length" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="handlePageEvent($event)">
+</mat-paginator>

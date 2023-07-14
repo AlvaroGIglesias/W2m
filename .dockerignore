@@ -1,0 +1,9 @@
+.git
+
+.vscode
+
+.angular
+
+/hero_server
+
+/node_modules

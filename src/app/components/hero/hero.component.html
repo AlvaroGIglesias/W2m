@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-header>{{hero?.name}}</mat-card-header>
+    <mat-card-content>
+        <div *ngIf="hero?.description">
+            <span class="title">Description: </span><span>{{hero?.description}}</span>
+        </div>
+        <br>
+        <div>
+            <span class="title">Alter ego: </span><span>{{hero?.alterEgo}}</span>
+        </div>
+    </mat-card-content>
+    <mat-card-footer>
+        <button mat-raised-button (click)="onEdit()">Edit</button>
+        <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
+    </mat-card-footer>
+</mat-card>

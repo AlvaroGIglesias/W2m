@@ -1,0 +1,21 @@
+{
+    "heroes" : [
+        {
+            "id": "1",
+            "name": "Superman",
+            "alterEgo": "Clark Kent",
+            "description": "The Man of Steel is the ultimate symbol of truth, justice, and hope."
+        },
+        {
+            "id": "2",
+            "name": "Spiderman",
+            "alterEgo": "Peter Parker",
+            "description": "Peter Parker has spider-like qualities."
+        },
+        {
+            "id": "3",
+            "name": "Batman",
+            "alterEgo": "Bruce Wayne"
+        }
+    ]
+}
