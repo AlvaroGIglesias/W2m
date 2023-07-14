@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -13,11 +14,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { HeroListComponent } from './views/hero-list/hero-list.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { HeroEditComponent } from './views/hero-edit/hero-edit.component';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { ToUpperCaseDirective } from './directives/to-upper-case.directive';
 
 
 
@@ -27,7 +31,8 @@ import { HeroEditComponent } from './views/hero-edit/hero-edit.component';
     HeroComponent,
     HeroListComponent,
     ConfirmDialogComponent,
-    HeroEditComponent
+    HeroEditComponent,
+    ToUpperCaseDirective
   ],
   imports: [
     BrowserModule,
@@ -42,9 +47,16 @@ import { HeroEditComponent } from './views/hero-edit/hero-edit.component';
     FormsModule,
     MatButtonModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

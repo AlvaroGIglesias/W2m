@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { delay } from 'rxjs';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'W2m';
+  loading: boolean = false;
+
+  constructor(
+    private loadingSrv: LoadingService
+  ) { }
+
+  ngOnInit() {
+    this.listenToLoading();
+  }
+
+  listenToLoading(): void {
+    this.loadingSrv.loadingSub
+      .pipe(delay(0))
+      .subscribe((loading) => {
+        this.loading = loading;
+      });
+  }
 }

@@ -3,7 +3,7 @@
     <form [formGroup]="heroForm" class="hero-form">
         <mat-form-field class="example-form-field">
             <mat-label>Hero name</mat-label>
-            <input matInput [formControl]="name" required>
+            <input matInput [formControl]="name" required appToUpperCase>
             <mat-error *ngIf="name.invalid">You must enter a value</mat-error>
         </mat-form-field>
 

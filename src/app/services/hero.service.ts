@@ -26,12 +26,7 @@ export class HeroService {
       heroesObs = this.http.get<any>(`${BASE_URL}${HEROES_API}`)
         .pipe(
           map(data => {
-            console.log("data: ", data);
-            console.log("data.heroes: ", data.heroes);
-
-            this.heroes = data.heroes;
-            console.log("this.heroes: ", this.heroes);
-            
+            this.heroes = data.heroes;            
             return data.heroes;
           })
         );

@@ -30,7 +30,6 @@ export class HeroListComponent implements OnInit {
 
   ngOnInit(): void {
     this.heroSrv.getHeroes().subscribe(heroes => {
-      console.log("heroes", heroes)
       this.heroes = heroes;
       this.heroesFiltered = heroes;
       this.filterHeroes();
